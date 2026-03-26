@@ -1,0 +1,53 @@
+{
+  "pictures": [
+    {
+      "id": "pic-001",
+      "src": "/images/IMG_0069.jpeg",
+      "caption": "By Michael Everitt",
+      "date": "2026-03-27",
+      "link": "picture.html?src=/images/IMG_0069.jpeg"
+    },
+    {
+      "id": "pic-002", 
+      "src": "/images/IMG_5188.jpeg",
+      "caption": "By Michael Everitt",
+      "date": "2026-03-26",
+      "link": "picture.html?src=/images/IMG_0070.jpeg"
+    },
+    {
+      "id": "pic-003",
+      "src": "/images/IMG_5201jpeg", 
+      "caption": "By Michael Everitt",
+      "date": "2026-03-25",
+      "link": "picture.html?src=/images/IMG_0071.jpeg"
+    },
+    {
+      "id": "pic-003",
+      "src": "/images/IMG_5942jpeg", 
+      "caption": "By Michael Everitt",
+      "date": "2026-03-25",
+      "link": "picture.html?src=/images/IMG_0071.jpeg"
+    },
+    {
+      "id": "pic-003",
+      "src": "/images/IMG_6150jpeg", 
+      "caption": "By Michael Everitt",
+      "date": "2026-03-25",
+      "link": "picture.html?src=/images/IMG_0071.jpeg"
+    },
+    {
+      "id": "pic-003",
+      "src": "/images/IMG_9897jpeg", 
+      "caption": "By Michael Everitt",
+      "date": "2026-03-25",
+      "link": "picture.html?src=/images/IMG_0071.jpeg"
+    },
+    {
+      "id": "pic-003",
+      "src": "/images/IMG_9903jpeg", 
+      "caption": "By Michael Everitt",
+      "date": "2026-03-25",
+      "link": "picture.html?src=/images/IMG_0071.jpeg"
+    }
+  ]
+}
