@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picture | Michael Everitt</title>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {font-family: 'Segoe UI', sans-serif; background: #f5f7fa; color: #333;}
+        nav {background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.08); padding: 15px 20px; position: sticky; top: 0; z-index: 10;}
+        .nav-container {max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;}
+        .logo {font-size: 1.5rem; font-weight: bold; color: #2c3e50;}
+        .menu a {margin-left: 20px; text-decoration: none; color: #555;}
+        .menu a:hover {color: #3498db;}
+        .section {max-width: 900px; margin: 60px auto; padding: 0 20px; text-align: center;}
+        .photo-card {background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.08);}
+        .photo-card img {width: 100%; height: auto; display: block;}
+        .info {padding: 20px;}
+        .info p {font-size: 1rem; color: #95a5a5; font-style: italic;}
+        .back {margin-top: 30px;}
+        .back a {color: #3498db; font-weight: bold; text-decoration: none;}
+        footer {background: #2c3e50; color: white; text-align: center; padding: 30px; margin-top: 80px;}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Michael Everitt</div>
+            <div class="menu">
+                <a href="index.html">About</a>
+                <a href="essays.html">Some Words</a>
+                <a href="pictures.html">Some Pictures</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+    <div class="section">
+        <div class="photo-card">
+            <img id="pic" src="">
+            <div class="info"><p>By Michael Everitt</p></div>
+        </div>
+        <div class="back">
+            <a href="pictures.html">← All Pictures</a>
+        </div>
+    </div>
+    <footer>&copy; 2026 Michael Everitt</footer>
+    <script>
+        const src = new URLSearchParams(location.search).get('src')
+        document.getElementById('pic').src = src
+    </script>
+</body>
+</html>
