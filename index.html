@@ -11,21 +11,21 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: #f5f7fa;
             color: #333;
             line-height: 1.6;
             overflow: hidden;
         }
 
-        /* 开场全屏 - 严格居中 */
+        /* 开场全屏居中 */
         .splash-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #ffffff;
+            background: #fff;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -39,86 +39,70 @@
             transform: scale(1.03);
         }
 
-        /* 标题容器：保证永远居中 */
-        .title-wrapper {
+        /* 标题：正常字体 + 从左到右书写动画 + 永远居中 */
+        .title-wrap {
             display: flex;
             justify-content: center;
             width: 100%;
         }
         .splash-title {
-            font-family: 'Brush Script MT', 'Apple Chancery', cursive;
-            font-size: clamp(3.2rem, 10vw, 7rem);
-            font-style: italic;
-            font-weight: 500;
+            font-size: clamp(2.6rem, 8vw, 5.5rem);
+            font-weight: 600;
             color: #1f2937;
             white-space: nowrap;
-            margin-bottom: 2.4rem;
-            position: relative;
+            margin-bottom: 2.2rem;
+
+            /* 从左到右显示 */
+            overflow: hidden;
+            width: 0;
+            animation: typing 2.4s ease-out forwards;
+        }
+        @keyframes typing {
+            to { width: 100%; }
         }
 
-        /* 手写绘制动画 */
-        .splash-title::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            animation: draw 2.2s ease-out forwards;
-        }
-        @keyframes draw {
-            0%   { width: 100%; }
-            100% { width: 0%; }
-        }
-
-        /* 撞击震动 */
-        @keyframes shake {
-            0%,100% { transform: translateX(0); }
-            25%  { transform: translateX(-3px); }
-            75%  { transform: translateX(3px); }
-        }
-        .shake {
-            animation: shake 0.28s ease;
-        }
-
-        /* 水母 */
+        /* 水母：从左到右依次出现 + 自身浮动循环 */
         .jellies {
             display: flex;
-            gap: clamp(0.8rem, 4vw, 2.2rem);
+            gap: clamp(0.8rem, 4vw, 2rem);
             margin-bottom: 4rem;
-            justify-content: center;
         }
         .jelly {
-            font-size: clamp(2.2rem, 7vw, 4rem);
+            font-size: clamp(2.2rem, 6.5vw, 3.8rem);
             opacity: 0;
         }
-        @keyframes floatUp {
-            0%   { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(-12px); }
+
+        /* 依次淡入 */
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* 持续上下浮动 */
+        @keyframes floatSmooth {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         /* 银色宽按钮 */
         .start-btn {
-            padding: 14px 56px;
+            padding: 14px 52px;
             border: 2px solid #cdd7e0;
             border-radius: 999px;
-            background: #ffffff;
+            background: #fff;
             color: #444;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 400;
-            letter-spacing: 1.2px;
+            letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
         .start-btn:hover {
             background: #f0f4f8;
             border-color: #aab6c2;
-            color: #222;
             transform: translateY(-2px);
         }
 
-        /* 主页样式 */
+        /* 主页原有样式 */
         nav {
             background: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
@@ -257,11 +241,12 @@
 
 <body>
 
-<!-- 开场屏：全部严格居中 -->
+<!-- 开场屏 -->
 <div class="splash-screen">
-    <div class="title-wrapper">
+    <div class="title-wrap">
         <h1 class="splash-title" id="mainTitle">Michael Everitt</h1>
     </div>
+
     <div class="jellies">
         <span class="jelly">🪼</span>
         <span class="jelly">🪼</span>
@@ -269,6 +254,7 @@
         <span class="jelly">🪼</span>
         <span class="jelly">🪼</span>
     </div>
+
     <button class="start-btn" id="startBtn">START</button>
 </div>
 
@@ -320,35 +306,27 @@
 </div>
 
 <script>
+    // 标题写完再开始水母动画
     const jellies = document.querySelectorAll('.jelly');
-    const title = document.getElementById('mainTitle');
 
-    function playJellyAnimation() {
+    setTimeout(() => {
         jellies.forEach((el, i) => {
+            // 从左到右依次出现
             setTimeout(() => {
-                el.style.animation = 'none';
-                void el.offsetWidth;
-                el.style.animation = `floatUp 1.1s ease forwards`;
-
-                if (i === jellies.length - 1) {
-                    setTimeout(() => {
-                        title.classList.add('shake');
-                        setTimeout(() => title.classList.remove('shake'), 280);
-                    }, 900);
-                }
-            }, i * 280);
+                el.style.animation = `fadeIn 0.8s ease forwards, floatSmooth 3s ease-in-out infinite`;
+                el.style.animationDelay = `${i * 0.2}s, ${i * 0.2 + 0.8}s`;
+            }, i * 180);
         });
-        setTimeout(playJellyAnimation, 3200);
-    }
+    }, 2400);
 
-    playJellyAnimation();
-
+    // 点击进入主页
     document.getElementById('startBtn').addEventListener('click', () => {
         document.querySelector('.splash-screen').classList.add('hidden');
         document.querySelector('.main-content').classList.add('visible');
         document.body.style.overflow = 'auto';
     });
 
+    // 加载随笔
     fetch('essays.json')
         .then(r => r.json())
         .then(essays => {
@@ -361,6 +339,7 @@
             </div>`;
         });
 
+    // 加载最新图片
     const pictures = [
         "/images/IMG_0069.jpeg",
         "/images/IMG_5188.jpeg",
