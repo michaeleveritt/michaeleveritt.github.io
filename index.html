@@ -16,7 +16,6 @@
             color: #333;
             line-height: 1.6;
         }
-        /* 导航栏 */
         nav {
             background: white;
             padding: 15px 20px;
@@ -41,12 +40,10 @@
             margin-left: 20px;
             text-decoration: none;
             color: #555;
-            transition: color 0.3s;
         }
         nav .menu a:hover {
             color: #3498db;
         }
-        /* 头部简介：强制一行显示 */
         .header {
             max-width: 1000px;
             margin: 40px auto;
@@ -67,7 +64,6 @@
             font-size: clamp(1rem, 3vw, 1.2rem);
             color: #7f8c8d;
         }
-        /* 分区通用样式 */
         .section {
             max-width: 1000px;
             margin: 60px auto;
@@ -80,7 +76,6 @@
             border-left: 5px solid #3498db;
             padding-left: 15px;
         }
-        /* 摄影作品区 */
         .photo-grid {
             display: flex;
             flex-direction: column;
@@ -93,7 +88,6 @@
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
             transition: transform 0.3s;
-            position: relative;
             width: 95%;
             max-width: 350px;
         }
@@ -114,13 +108,14 @@
             color: #95a5a6;
             font-style: italic;
         }
-        /* 随笔区 - 首页只显示1篇，限制3行预览 */
+
+        /* 随笔样式 */
         .essay-list {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
-        /* 首页只显示第一篇，隐藏第二篇 */
+        /* 首页只显示第一篇 */
         #words .essay-list .essay-card:nth-child(n+2) {
             display: none;
         }
@@ -129,11 +124,7 @@
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            cursor: pointer; /* 鼠标悬浮显示手型，提示可点击 */
-            transition: transform 0.3s;
-        }
-        .essay-card:hover {
-            transform: translateY(-3px);
+            cursor: pointer;
         }
         .essay-card h3 {
             font-size: 1.3rem;
@@ -145,9 +136,8 @@
             color: #95a5a6;
             margin-bottom: 10px;
         }
+        /* 只显示3行 */
         .essay-card p {
-            color: #555;
-            /* 限制显示3行，超出部分显示省略号 */
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
@@ -155,17 +145,6 @@
             text-overflow: ellipsis;
             line-height: 1.6;
         }
-        /* 随笔列表页（新页面）样式 */
-        .essay-full-page .essay-list .essay-card:nth-child(n+2) {
-            display: block;
-        }
-        /* 随笔详情页样式 */
-        .essay-detail .essay-card p {
-            display: block;
-            -webkit-line-clamp: unset;
-            overflow: visible;
-        }
-        /* 底部 */
         footer {
             background: #2c3e50;
             color: white;
@@ -176,92 +155,52 @@
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
     <nav>
         <div class="nav-container">
             <div class="logo">Michael Everitt</div>
             <div class="menu">
-                <a href="index.html#about">About</a>
-                <a href="essays.html">Some Words</a> <!-- 跳转到随笔列表页 -->
+                <a href="index.html">About</a>
+                <a href="essays.html">Some Words</a>
                 <a href="index.html#pictures">Some Pictures</a>
                 <a href="index.html#contact">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- 头部简介 -->
     <div class="header" id="about">
         <h1>I'm Michael Everitt</h1>
         <p>This is a website with super artistic content.</p>
     </div>
 
-    <!-- 文字区（首页只显示1篇预览） -->
     <div class="section" id="words">
-        <h2>Some Words <a href="essays.html" style="font-size:1rem; color:#3498db; text-decoration:none;">View All →</a></h2>
+        <h2>Some Words</h2>
         <div class="essay-list">
             <div class="essay-card" onclick="location.href='essay1.html'">
                 <h3>Thoughts on Photography</h3>
                 <div class="date">2025.10.05</div>
                 <p>The interplay of light and shadow is always the most enchanting theme in my lens. Every time I press the shutter, it's a brief embrace with time. Photography is not just about capturing what we see, but about capturing how we feel. The beauty lies in the imperfection, the fleeting moments that never come again.</p>
             </div>
-            <div class="essay-card" onclick="location.href='essay2.html'">
+            <div class="essay-card">
                 <h3>Autumn Breeze</h3>
                 <div class="date">2025.09.28</div>
-                <p>Walking down a street covered with fallen leaves, the wind already carries the scent of winter. I love this season—calm and sober, perfect for thinking and silence. The golden hour light filters through the trees, painting everything in warm hues. These are the moments worth remembering, worth holding onto.</p>
+                <p>Walking down a street covered with fallen leaves, the wind already carries the scent of winter. I love this season—calm and sober, perfect for thinking and silence.</p>
             </div>
         </div>
     </div>
 
-    <!-- 图片区 -->
     <div class="section" id="pictures">
         <h2>Some Pictures</h2>
         <div class="photo-grid">
-            <div class="photo-card">
-                <img src="/images/IMG_0069.jpeg" alt="Photo 1">
-                <div class="info">
-                    <p>By Michael Everitt</p>
-                </div>
-            </div>
-            <div class="photo-card">
-                <img src="/images/IMG_5188.jpeg" alt="Photo 2">
-                <div class="info">
-                    <p>By Michael Everitt</p>
-                </div>
-            </div>
-            <div class="photo-card">
-                <img src="/images/IMG_5201.jpeg" alt="Photo 3">
-                <div class="info">
-                    <p>By Michael Everitt</p>
-                </div>
-            </div>
-            <div class="photo-card">
-                <img src="/images/IMG_5942.jpeg" alt="Photo 4">
-                <div class="info">
-                    <p>By Michael Everitt</p>
-                </div>
-            </div>
-            <div class="photo-card">
-                <img src="/images/IMG_6150.jpeg" alt="Photo 5">
-                <div class="info">
-                    <p>By Michael Everitt</p>
-                </div>
-            </div>
-            <div class="photo-card">
-                <img src="/images/IMG_9897.jpeg" alt="Photo 6">
-                <div class="info">
-                    <p>By Michael Everitt</p>
-                </div>
-            </div>
-            <div class="photo-card">
-                <img src="/images/IMG_9903.jpeg" alt="Photo 7">
-                <div class="info">
-                    <p>By Michael Everitt</p>
-                </div>
-            </div>
+            <div class="photo-card"><img src="/images/IMG_0069.jpeg"><div class="info"><p>By Michael Everitt</p></div></div>
+            <div class="photo-card"><img src="/images/IMG_5188.jpeg"><div class="info"><p>By Michael Everitt</p></div></div>
+            <div class="photo-card"><img src="/images/IMG_5201.jpeg"><div class="info"><p>By Michael Everitt</p></div></div>
+            <div class="photo-card"><img src="/images/IMG_5942.jpeg"><div class="info"><p>By Michael Everitt</p></div></div>
+            <div class="photo-card"><img src="/images/IMG_6150.jpeg"><div class="info"><p>By Michael Everitt</p></div></div>
+            <div class="photo-card"><img src="/images/IMG_9897.jpeg"><div class="info"><p>By Michael Everitt</p></div></div>
+            <div class="photo-card"><img src="/images/IMG_9903.jpeg"><div class="info"><p>By Michael Everitt</p></div></div>
         </div>
     </div>
 
-    <!-- 联系信息区 -->
     <div class="section" id="contact">
         <h2>Contact Information</h2>
         <div class="essay-card">
@@ -269,7 +208,6 @@
         </div>
     </div>
 
-    <!-- 底部 -->
     <footer>
         <p>&copy; 2026 Michael Everitt. All rights reserved.</p>
     </footer>
