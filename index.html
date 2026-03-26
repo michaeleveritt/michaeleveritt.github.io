@@ -54,9 +54,12 @@
             text-align: center;
         }
         .header h1 {
-            font-size: 2.8rem;
+            font-size: clamp(2.2rem, 6vw, 3.2rem); /* 自动适配字号，最小2.2rem，最大3.2rem */;
             color: #2c3e50;
             margin-bottom: 10px;
+            white-space: nowrap; /* 强制不换行 */
+            overflow: hidden;    /* 防止溢出 */
+            text-overflow: ellipsis; /* 极端情况显示省略号（可选） */
         }
         .header p {
             font-size: 1.2rem;
