@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Essays | Michael Everitt</title>
+    <title>All Essays</title>
     <style>
         * {
             margin: 0;
@@ -11,37 +11,36 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            background-color: #f5f7fa;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f5f7fa;
             color: #333;
-            line-height: 1.6;
         }
         nav {
             background: white;
-            padding: 15px 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            padding: 15px 20px;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 10;
         }
-        nav .nav-container {
+        .nav-container {
             max-width: 1000px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        nav .logo {
+        .logo {
             font-size: 1.5rem;
             font-weight: bold;
             color: #2c3e50;
         }
-        nav .menu a {
+        .menu a {
             margin-left: 20px;
             text-decoration: none;
             color: #555;
         }
-        nav .menu a:hover {
+        .menu a:hover {
             color: #3498db;
         }
         .section {
@@ -51,10 +50,9 @@
         }
         .section h2 {
             font-size: 2rem;
-            color: #2c3e50;
-            margin-bottom: 30px;
             border-left: 5px solid #3498db;
             padding-left: 15px;
+            margin-bottom: 30px;
         }
         .essay-list {
             display: flex;
@@ -70,12 +68,10 @@
         }
         .essay-card h3 {
             font-size: 1.3rem;
-            color: #2c3e50;
             margin-bottom: 10px;
         }
-        .essay-card .date {
-            font-size: 0.9rem;
-            color: #95a5a6;
+        .date {
+            color: #95a5a5;
             margin-bottom: 10px;
         }
         .essay-card p {
@@ -89,42 +85,44 @@
             background: #2c3e50;
             color: white;
             text-align: center;
-            padding: 30px 20px;
+            padding: 30px;
             margin-top: 80px;
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <div class="logo">Michael Everitt</div>
-            <div class="menu">
-                <a href="index.html">About</a>
-                <a href="essays.html">Some Words</a>
-                <a href="index.html#pictures">Some Pictures</a>
-                <a href="index.html#contact">Contact</a>
-            </div>
-        </div>
-    </nav>
 
-    <div class="section">
-        <h2>All Essays</h2>
-        <div class="essay-list">
-            <div class="essay-card" onclick="location.href='essay1.html'">
-                <h3>Thoughts on Photography</h3>
-                <div class="date">2025.10.05</div>
-                <p>The interplay of light and shadow is always the most enchanting theme in my lens. Every time I press the shutter, it's a brief embrace with time. Photography is not just about capturing what we see, but about capturing how we feel. The beauty lies in the imperfection, the fleeting moments that never come again.</p>
-            </div>
-            <div class="essay-card">
-                <h3>Autumn Breeze</h3>
-                <div class="date">2025.09.28</div>
-                <p>Walking down a street covered with fallen leaves, the wind already carries the scent of winter. I love this season—calm and sober, perfect for thinking and silence.</p>
-            </div>
+<nav>
+    <div class="nav-container">
+        <div class="logo">Michael Everitt</div>
+        <div class="menu">
+            <a href="index.html">About</a>
+            <a href="essays.html">Some Words</a>
+            <a href="index.html#pictures">Some Pictures</a>
+            <a href="index.html#contact">Contact</a>
         </div>
     </div>
+</nav>
 
-    <footer>
-        <p>&copy; 2026 Michael Everitt. All rights reserved.</p>
-    </footer>
+<div class="section">
+    <h2>All Essays</h2>
+    <div class="essay-list" id="essay-list"></div>
+</div>
+
+<footer>&copy; 2026 Michael Everitt</footer>
+
+<script>
+fetch('essays.json')
+    .then(r => r.json())
+    .then(essays => {
+        const list = essays.map(e => `
+        <div class="essay-card" onclick="location.href='essay.html?id=${e.id}'">
+            <h3>${e.title}</h3>
+            <div class="date">${e.date}</div>
+            <p>${e.preview}</p>
+        </div>`).join('')
+        document.getElementById('essay-list').innerHTML = list
+    })
+</script>
 </body>
 </html>
