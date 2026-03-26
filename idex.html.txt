@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Everitt | Personal Site</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        /* 导航栏 */
+        nav {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        nav .menu a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #555;
+            transition: color 0.3s;
+        }
+        nav .menu a:hover {
+            color: #3498db;
+        }
+        /* 头部简介 */
+        .header {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+        /* 分区通用样式 */
+        .section {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .section h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+        }
+        /* 摄影作品区 - 网格布局 */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .photo-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .photo-card:hover {
+            transform: translateY(-5px);
+        }
+        .photo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .photo-card .info {
+            padding: 15px;
+        }
+        .photo-card .info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        .photo-card .info p {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        /* 随笔区 - 列表布局 */
+        .essay-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .essay-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .essay-card h3 {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .essay-card .date {
+            font-size: 0.9rem;
+            color: #95a5a6;
+            margin-bottom: 10px;
+        }
+        .essay-card p {
+            color: #555;
+        }
+        /* 底部 */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Michael Everitt</div>
+            <div class="menu">
+                <a href="#about">About</a>
+                <a href="#words">Some Words</a>
+                <a href="#pictures">Some Pictures</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 头部简介 -->
+    <div class="header" id="about">
+        <h1>I’m Michael Everitt</h1>
+        <p>This is a website with super artistic content.</p>
+    </div>
+
+    <!-- 文字区 -->
+    <div class="section" id="words">
+        <h2>Some Words</h2>
+        <div class="essay-list">
+            <div class="essay-card">
+                <h3>Thoughts on Photography</h3>
+                <div class="date">2025.10.05</div>
+                <p>The interplay of light and shadow is always the most enchanting theme in my lens. Every time I press the shutter, it's a brief embrace with time...</p>
+            </div>
+            <div class="essay-card">
+                <h3>Autumn Breeze</h3>
+                <div class="date">2025.09.28</div>
+                <p>Walking down a street covered with fallen leaves, the wind already carries the scent of winter. I love this season—calm and sober, perfect for thinking and silence...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片区 -->
+    <div class="section" id="pictures">
+        <h2>Some Pictures</h2>
+        <div class="photo-grid">
+            <div class="photo-card">
+                <img src="https://picsum.photos/seed/photo1/400/300" alt="Photo 1">
+                <div class="info">
+                    <h3>City Dusk</h3>
+                    <p>2025.10.01 | Shanghai</p>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="https://picsum.photos/seed/photo2/400/300" alt="Photo 2">
+                <div class="info">
+                    <h3>Mountain Mist</h3>
+                    <p>2025.09.15 | Huangshan</p>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="https://picsum.photos/seed/photo3/400/300" alt="Photo 3">
+                <div class="info">
+                    <h3>Street Portrait</h3>
+                    <p>2025.08.20 | Beijing</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 联系信息区 -->
+    <div class="section" id="contact">
+        <h2>Contact Information</h2>
+        <div class="essay-card">
+            <p>Email: your@email.com</p>
+            <p>GitHub: https://github.com/michaeleveritt</p>
+            <p>Instagram: @michaeleveritt</p>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer>
+        <p>&copy; 2025 Michael Everitt. All rights reserved.</p>
+    </footer>
+</body>
+</html>
