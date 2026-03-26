@@ -357,12 +357,12 @@ if (container) {
     });
 }
 
-// 启动台显示逻辑 - 仅首次访问显示
-if (!localStorage.getItem('hasVisited')) {
-    // 首次访问，显示启动台
-    localStorage.setItem('hasVisited', 'true');
+// 启动台显示逻辑 - 关闭网站重新进入显示，刷新页面不显示
+if (!sessionStorage.getItem('hasVisited')) {
+    // 本次会话首次访问（包括关闭网站后重新打开），显示启动台
+    sessionStorage.setItem('hasVisited', 'true');
 } else {
-    // 非首次访问，直接隐藏启动台，显示主内容
+    // 刷新页面（同一会话），直接隐藏启动台，显示主内容
     const splashScreen = document.querySelector('.splash-screen');
     const mainContent = document.querySelector('.main-content');
     if (splashScreen && mainContent) {
