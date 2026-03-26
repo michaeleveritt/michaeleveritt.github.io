@@ -78,15 +78,21 @@
             50%  { transform: translateY(-14px); }
         }
 
-        /* 丝滑上浮 + 轻微摆动，全程极顺 */
+        /* 丝滑上浮 + 摆动，不淡出、不透明 */
         @keyframes smoothFly {
             0% {
                 transform: translateY(0) translateX(0) scale(1);
-                opacity: 1;
             }
             100% {
                 transform: translateY(-120vh) translateX(25px) scale(0.8);
-                opacity: 0;
+            }
+        }
+        @keyframes smoothFlyL {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+            }
+            100% {
+                transform: translateY(-120vh) translateX(-25px) scale(0.8);
             }
         }
 
@@ -96,7 +102,7 @@
             pointer-events: none;
             z-index: 10000;
             animation: smoothFly 4s linear forwards;
-            will-change: transform, opacity;
+            will-change: transform;
         }
 
         .start-btn {
@@ -216,14 +222,12 @@
         const i = e.target.dataset.i;
         const r = e.target.getBoundingClientRect();
 
-        // 丝滑飞出水母
         const f = document.createElement('span');
         f.className = 'fly-jelly';
         f.textContent = '🪼';
         f.style.left = r.left + 'px';
         f.style.top = r.top + 'px';
-        // 随机左右摆动方向，更自然
-        f.style.animationName = Math.random()>.5 ? 'smoothFly' : 'smoothFlyL';
+        f.style.animationName = Math.random() > 0.5 ? 'smoothFly' : 'smoothFlyL';
         document.body.appendChild(f);
 
         e.target.style.visibility = 'hidden';
@@ -238,16 +242,6 @@
             container.replaceChild(n, e.target);
         }, 4000);
     });
-
-    // 左右反向摆动动画
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes smoothFlyL {
-            0% { transform: translateY(0) translateX(0) scale(1); opacity:1; }
-            100% { transform: translateY(-120vh) translateX(-25px) scale(0.8); opacity:0; }
-        }
-    `;
-    document.head.appendChild(style);
 
     document.querySelector('.start-btn').onclick = () => {
         document.querySelector('.splash-screen').classList.add('hidden');
