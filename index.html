@@ -78,7 +78,7 @@
         /* 摄影作品区 - 网格布局 */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: 1fr; /* 强制单列，宽度绝对一致 */
             gap: 20px;
         }
         .photo-card {
@@ -87,27 +87,21 @@
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
             transition: transform 0.3s;
-            position: relative;/* 关键：让卡片高度完全由图片撑开 */
-            height: auto;
+            position: relative;
         }
         .photo-card:hover {
             transform: translateY(-5px);
         }
         .photo-card img {
             width: 100%;
-            height:auto;
+            height: auto;
             object-fit: contain;
             display: block;
-            padding: 0;
         }
         .photo-card .info {
             padding: 15px;
         }
-        .photo-card .info h3 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-        .photo-card .info p:last-child {
+        .photo-card .info p {
             font-size: 0.8rem;
             color: #95a5a6;
             font-style: italic;
@@ -163,7 +157,7 @@
 
     <!-- 头部简介 -->
     <div class="header" id="about">
-        <h1>I’m Michael Everitt</h1>
+        <h1>I'm Michael Everitt</h1>
         <p>This is a website with super artistic content.</p>
     </div>
 
@@ -185,74 +179,54 @@
     </div>
 
     <!-- 图片区 -->
-<div class="section" id="pictures">
-    <h2>Some Pictures</h2>
-    <div class="photo-grid">
-        <div class="photo-card">
-            <img src="/images/IMG_0069.jpeg" alt="Photo 1">
-            <div class="info">
-                <p>By Michael Everitt</p>
+    <div class="section" id="pictures">
+        <h2>Some Pictures</h2>
+        <div class="photo-grid">
+            <div class="photo-card">
+                <img src="/images/IMG_0069.jpeg" alt="Photo 1">
+                <div class="info">
+                    <p>By Michael Everitt</p>
+                </div>
             </div>
-        </div>
-                <!-- 你可以在这里加标题和描述，也可以留空 -->
+            <div class="photo-card">
+                <img src="/images/IMG_5188.jpeg" alt="Photo 2">
+                <div class="info">
+                    <p>By Michael Everitt</p>
+                </div>
             </div>
-        </div>
-        <div class="photo-card">
-            <img src="/images/IMG_5188.jpeg" alt="Photo 2">
-            <div class="info">
-                <p>By Michael Everitt</p>
+            <div class="photo-card">
+                <img src="/images/IMG_5201.jpeg" alt="Photo 3">
+                <div class="info">
+                    <p>By Michael Everitt</p>
+                </div>
             </div>
-        </div>
-                <!-- 你可以在这里加标题和描述，也可以留空 -->
+            <div class="photo-card">
+                <img src="/images/IMG_5942.jpeg" alt="Photo 4">
+                <div class="info">
+                    <p>By Michael Everitt</p>
+                </div>
             </div>
-        </div>
-        <div class="photo-card">
-            <img src="/images/IMG_5201.jpeg" alt="Photo 3">
-            <div class="info">
-                <p>By Michael Everitt</p>
+            <div class="photo-card">
+                <img src="/images/IMG_6150.jpeg" alt="Photo 5">
+                <div class="info">
+                    <p>By Michael Everitt</p>
+                </div>
             </div>
-        </div>
-                <!-- 你可以在这里加标题和描述，也可以留空 -->
+            <div class="photo-card">
+                <img src="/images/IMG_9897.jpeg" alt="Photo 6">
+                <div class="info">
+                    <p>By Michael Everitt</p>
+                </div>
             </div>
-        </div>
-        <div class="photo-card">
-            <img src="/images/IMG_5942.jpeg" alt="Photo 4">
-            <div class="info">
-                <p>By Michael Everitt</p>
-            </div>
-        </div>
-                <!-- 你可以在这里加标题和描述，也可以留空 -->
-            </div>
-        </div>
-        <div class="photo-card">
-            <img src="/images/IMG_6150.jpeg" alt="Photo 5">
-            <div class="info">
-                <p>By Michael Everitt</p>
-            </div>
-        </div>
-                <!-- 你可以在这里加标题和描述，也可以留空 -->
-            </div>
-        </div>
-        <div class="photo-card">
-            <img src="/images/IMG_9897.jpeg" alt="Photo 6">
-            <div class="info">
-                <p>By Michael Everitt</p>
-            </div>
-        </div>
-                <!-- 你可以在这里加标题和描述，也可以留空 -->
-            </div>
-        </div>
-        <div class="photo-card">
-            <img src="/images/IMG_9903.jpeg" alt="Photo 7">
-            <div class="info">
-                <p>By Michael Everitt</p>
-            </div>
-        </div>
-                <!-- 你可以在这里加标题和描述，也可以留空 -->
+            <div class="photo-card">
+                <img src="/images/IMG_9903.jpeg" alt="Photo 7">
+                <div class="info">
+                    <p>By Michael Everitt</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
     <!-- 联系信息区 -->
     <div class="section" id="contact">
         <h2>Contact Information</h2>
