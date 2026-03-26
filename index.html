@@ -30,19 +30,18 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.8s ease;
         }
         .splash-screen.hidden {
             opacity: 0;
             pointer-events: none;
-            transform: scale(1.03);
+            transform: scale(1.02);
         }
 
         .title-wrap {
+            width: 100%;
             display: flex;
             justify-content: center;
-            width: 100%;
-            position: relative;
         }
         .splash-title {
             font-size: clamp(2.8rem, 9vw, 6rem);
@@ -60,7 +59,7 @@
         }
         .jelly {
             font-size: clamp(2.8rem, 8vw, 4.5rem);
-            animation: floatBig 3.5s ease-in-out infinite;
+            animation: floatSoft 3.2s ease-in-out infinite;
             cursor: pointer;
             text-align: center;
             transition: transform 0.2s;
@@ -74,26 +73,30 @@
         .jelly:nth-child(4) { animation-delay: 0.9s; }
         .jelly:nth-child(5) { animation-delay: 1.2s; }
 
-        @keyframes floatBig {
+        @keyframes floatSoft {
             0%, 100% { transform: translateY(0); }
-            50%  { transform: translateY(-18px); }
+            50%  { transform: translateY(-14px); }
         }
 
-        /* 缓慢左右摇摆上浮 —— 真实海漂效果 */
-        @keyframes jellyFloatUp {
-            0%   { transform: translate(0,0) scale(1); opacity:1; }
-            25%  { transform: translate(-12px, -25vh) scale(0.95); }
-            50%  { transform: translate(18px, -50vh) scale(0.9); }
-            75%  { transform: translate(-10px, -75vh) scale(0.85); }
-            100% { transform: translate(14px, -130vh) scale(0.8); opacity:0; }
+        /* 丝滑上浮 + 轻微摆动，全程极顺 */
+        @keyframes smoothFly {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120vh) translateX(25px) scale(0.8);
+                opacity: 0;
+            }
         }
 
-        .floating-jelly {
+        .fly-jelly {
             font-size: clamp(2.8rem, 8vw, 4.5rem);
             position: absolute;
             pointer-events: none;
             z-index: 10000;
-            animation: jellyFloatUp 5.5s ease-in-out forwards; /* 更慢更柔 */
+            animation: smoothFly 4s linear forwards;
+            will-change: transform, opacity;
         }
 
         .start-btn {
@@ -101,117 +104,50 @@
             border: 2px solid #cdd7e0;
             border-radius: 999px;
             background: #fff;
-            color: #444;
             font-size: 1rem;
-            font-weight: 400;
-            letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
         .start-btn:hover {
             background: #f0f4f8;
             border-color: #aab6c2;
-            transform: translateY(-2px);
         }
 
         nav {
             background: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
             padding: 15px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            position: sticky; top:0; z-index:10;
         }
         .nav-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            max-width: 1000px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
         }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .menu a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: #555;
-        }
-        .menu a:hover {
-            color: #3498db;
-        }
-        .header {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 10px;
-            text-align: center;
-        }
-        h1 {
-            font-size: clamp(1.8rem, 5vw, 3.2rem);
-            white-space: nowrap !important;
-        }
-        .section {
-            max-width: 1000px;
-            margin: 60px auto;
-            padding: 0 20px;
-        }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #2c3e50; }
+        .menu a { margin-left: 20px; text-decoration: none; color: #555; }
+        .header { max-width: 1000px; margin: 40px auto; text-align: center; }
+        .section { max-width: 1000px; margin: 60px auto; padding: 0 20px; }
         .section h2 {
             font-size: 2rem;
-            border-left: 5px solid #3498db;
-            padding-left: 15px;
-            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 14px; margin-bottom: 24px;
         }
         .photo-grid, .essay-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
+            display: flex; flex-direction: column; gap: 20px; align-items: center;
         }
         .photo-card, .essay-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            width: 95%;
-            max-width: 350px;
+            background: white; border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.07);
+            width: 95%; max-width: 340px; overflow: hidden;
         }
-        .photo-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .info, .essay-card {
-            padding: 15px;
-        }
-        .date {
-            font-size: 0.9rem;
-            color: #95a5a5;
-        }
-        .see-all {
-            margin-top: 15px;
-            text-align: center;
-        }
-        .see-all a {
-            color: #3498db;
-            font-weight: 500;
-            text-decoration: none;
-        }
-        footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 30px;
-            margin-top: 80px;
-        }
-        .main-content {
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-        .main-content.visible {
-            opacity: 1;
-        }
+        .photo-card img { width: 100%; display:block; }
+        .info, .essay-card { padding: 16px; }
+        .date { color: #888; margin: 6px 0; }
+        .see-all { text-align: center; margin-top:12px; }
+        .see-all a { color: #3498db; text-decoration: none; }
+        footer { background:#2c3e50; color:white; text-align:center; padding:30px; margin-top:60px; }
+        .main-content { opacity:0; transition:opacity 1s ease; }
+        .main-content.visible { opacity:1; }
     </style>
 </head>
 
@@ -219,18 +155,18 @@
 
 <div class="splash-screen">
     <div class="title-wrap">
-        <h1 class="splash-title" id="mainTitle">Michael Everitt</h1>
+        <h1 class="splash-title">Michael Everitt</h1>
     </div>
 
     <div class="jellies" id="jellyContainer">
-        <span class="jelly" data-index="0">🪼</span>
-        <span class="jelly" data-index="1">🪼</span>
-        <span class="jelly" data-index="2">🪼</span>
-        <span class="jelly" data-index="3">🪼</span>
-        <span class="jelly" data-index="4">🪼</span>
+        <span class="jelly" data-i="0">🪼</span>
+        <span class="jelly" data-i="1">🪼</span>
+        <span class="jelly" data-i="2">🪼</span>
+        <span class="jelly" data-i="3">🪼</span>
+        <span class="jelly" data-i="4">🪼</span>
     </div>
 
-    <button class="start-btn" id="startBtn">START</button>
+    <button class="start-btn">START</button>
 </div>
 
 <div class="main-content">
@@ -239,8 +175,8 @@
             <div class="logo">Michael Everitt</div>
             <div class="menu">
                 <a href="#about">About</a>
-                <a href="essays.html">Some Words</a>
-                <a href="pictures.html">Some Pictures</a>
+                <a href="essays.html">Words</a>
+                <a href="pictures.html">Pictures</a>
                 <a href="#contact">Contact</a>
             </div>
         </div>
@@ -248,65 +184,72 @@
 
     <div class="header" id="about">
         <h1>I'm Michael Everitt</h1>
-        <p>This is a super artistic personal website.</p>
+        <p>A minimal personal website</p>
     </div>
 
     <div class="section">
-        <h2>📓 Some Words</h2>
-        <div class="essay-list" id="latest-essay"></div>
+        <h2>📓 Words</h2>
+        <div class="essay-list"></div>
         <div class="see-all"><a href="essays.html">See all</a></div>
     </div>
 
     <div class="section">
-        <h2>📸 Some Pictures</h2>
-        <div class="photo-grid" id="latest-picture"></div>
+        <h2>📸 Pictures</h2>
+        <div class="photo-grid"></div>
         <div class="see-all"><a href="pictures.html">See all</a></div>
     </div>
 
     <div class="section" id="contact">
-        <h2>Contact Information</h2>
-        <div class="essay-card">
-            <p>Email: airmail-pedicab.4l@icloud.com</p>
-        </div>
+        <h2>Contact</h2>
+        <div class="essay-card"><p>Email: airmail-pedicab.4l@icloud.com</p></div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Michael Everitt</p>
-    </footer>
+    <footer>&copy; 2026 Michael Everitt</footer>
 </div>
 
 <script>
-    const jellyContainer = document.getElementById('jellyContainer');
-    const title = document.getElementById('mainTitle');
-    const delayMap = [0, 0.3, 0.6, 0.9, 1.2];
+    const container = document.getElementById('jellyContainer');
+    const delays = [0, 0.3, 0.6, 0.9, 1.2];
 
-    jellyContainer.addEventListener('click', e => {
+    container.addEventListener('click', e => {
         if (!e.target.classList.contains('jelly')) return;
-        const index = e.target.dataset.index;
-        const rect = e.target.getBoundingClientRect();
+        const i = e.target.dataset.i;
+        const r = e.target.getBoundingClientRect();
 
-        // 生成飘逸上浮的水母
-        const fj = document.createElement('span');
-        fj.className = 'floating-jelly';
-        fj.textContent = '🪼';
-        fj.style.left = rect.left + 'px';
-        fj.style.top = rect.top + 'px';
-        document.body.appendChild(fj);
+        // 丝滑飞出水母
+        const f = document.createElement('span');
+        f.className = 'fly-jelly';
+        f.textContent = '🪼';
+        f.style.left = r.left + 'px';
+        f.style.top = r.top + 'px';
+        // 随机左右摆动方向，更自然
+        f.style.animationName = Math.random()>.5 ? 'smoothFly' : 'smoothFlyL';
+        document.body.appendChild(f);
 
         e.target.style.visibility = 'hidden';
 
         setTimeout(() => {
-            fj.remove();
-            const nj = document.createElement('span');
-            nj.className = 'jelly';
-            nj.dataset.index = index;
-            nj.textContent = '🪼';
-            nj.style.animationDelay = delayMap[index] + 's';
-            jellyContainer.replaceChild(nj, e.target);
-        }, 5500);
+            f.remove();
+            const n = document.createElement('span');
+            n.className = 'jelly';
+            n.dataset.i = i;
+            n.textContent = '🪼';
+            n.style.animationDelay = delays[i] + 's';
+            container.replaceChild(n, e.target);
+        }, 4000);
     });
 
-    document.getElementById('startBtn').onclick = () => {
+    // 左右反向摆动动画
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes smoothFlyL {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity:1; }
+            100% { transform: translateY(-120vh) translateX(-25px) scale(0.8); opacity:0; }
+        }
+    `;
+    document.head.appendChild(style);
+
+    document.querySelector('.start-btn').onclick = () => {
         document.querySelector('.splash-screen').classList.add('hidden');
         document.querySelector('.main-content').classList.add('visible');
         document.body.style.overflow = 'auto';
