@@ -66,13 +66,22 @@
         .content {
             white-space: pre-line;
         }
-        .back {
+        /* 与 All Pictures 完全一致的按钮样式 */
+        .view-all {
             margin-top: 30px;
+            text-align: center;
         }
-        .back a {
+        .view-all a {
             color: #3498db;
             font-weight: bold;
             text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #3498db;
+            border-radius: 8px;
+        }
+        .view-all a:hover {
+            background: #3498db;
+            color: white;
         }
         footer {
             background: #2c3e50;
@@ -103,8 +112,9 @@
         <div class="date" id="date"></div>
         <div class="content" id="content"></div>
     </div>
-    <div class="back">
-        <a href="essays.html">← All Essays</a>
+    <!-- 按钮改为 All Essays，样式与 All Pictures 完全统一 -->
+    <div class="view-all">
+        <a href="essays.html">All Essays</a>
     </div>
 </div>
 
