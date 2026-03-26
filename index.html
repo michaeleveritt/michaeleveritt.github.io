@@ -97,6 +97,7 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            align-items: center;
         }
         .essay-card {
             background: white;
@@ -104,6 +105,8 @@
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
             cursor: pointer;
+            width: 95%;
+            max-width: 350px;
         }
         .essay-card h3 {
             font-size: 1.3rem;
@@ -120,6 +123,17 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+        /* 查看全部按钮样式：放在下方居中 */
+        .see-all {
+            margin-top: 15px;
+            text-align: center;
+        }
+        .see-all a {
+            color: #3498db;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 1rem;
         }
         footer {
             background: #2c3e50;
@@ -150,19 +164,21 @@
 </div>
 
 <div class="section">
-    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 30px;">
-        <h2 style="margin: 0;">📓 Some Words</h2>
-        <a href="essays.html" style="color: #3498db; font-weight: 500; text-decoration: none; font-size: 1.3rem;">See all →</a>
-    </div>
+    <h2>📓 Some Words</h2>
     <div class="essay-list" id="latest-essay"></div>
+    <!-- 随笔 See all 放在下方居中 -->
+    <div class="see-all">
+        <a href="essays.html">See all</a>
+    </div>
 </div>
 
 <div class="section" id="pictures">
-    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 30px;">
-        <h2 style="margin: 0;">📸 Some Pictures</h2>
-        <a href="pictures.html" style="color: #3498db; font-weight: 500; text-decoration: none; font-size: 1.3rem;">See all →</a>
-    </div>
+    <h2>📸 Some Pictures</h2>
     <div class="photo-grid" id="latest-picture"></div>
+    <!-- 图片 See all 放在下方居中 -->
+    <div class="see-all">
+        <a href="pictures.html">See all</a>
+    </div>
 </div>
 
 <div class="section" id="contact">
@@ -190,7 +206,7 @@ fetch('essays.json')
         </div>`
     })
 
-// 加载最新图片（和随笔逻辑一致）
+// 加载最新图片
 const pictures = [
   "/images/IMG_0069.jpeg",
   "/images/IMG_5188.jpeg",
