@@ -39,20 +39,22 @@
             transform: scale(1.03);
         }
 
-        /* 标题：正常字体 + 从左到右书写动画 + 永远居中 */
+        /* 标题：手写体 + 从左到右书写 + 永远居中 */
         .title-wrap {
             display: flex;
             justify-content: center;
             width: 100%;
         }
         .splash-title {
-            font-size: clamp(2.6rem, 8vw, 5.5rem);
-            font-weight: 600;
+            font-family: 'Brush Script MT', 'Apple Chancery', cursive;
+            font-size: clamp(3.2rem, 10vw, 7rem);
+            font-style: italic;
+            font-weight: 500;
             color: #1f2937;
             white-space: nowrap;
-            margin-bottom: 2.2rem;
+            margin-bottom: 2.4rem;
 
-            /* 从左到右显示 */
+            /* 从左到右逐字显示 */
             overflow: hidden;
             width: 0;
             animation: typing 2.4s ease-out forwards;
@@ -61,26 +63,27 @@
             to { width: 100%; }
         }
 
-        /* 水母：从左到右依次出现 + 自身浮动循环 */
+        /* 水母：更大尺寸 + 直接开始上下浮动（无出场）+ 幅度更大 */
         .jellies {
             display: flex;
-            gap: clamp(0.8rem, 4vw, 2rem);
+            gap: clamp(1rem, 5vw, 2.5rem);
             margin-bottom: 4rem;
         }
         .jelly {
-            font-size: clamp(2.2rem, 6.5vw, 3.8rem);
-            opacity: 0;
+            font-size: clamp(2.8rem, 8vw, 4.5rem);
+            opacity: 1; /* 直接显示，无出场 */
+            animation: floatBig 3.5s ease-in-out infinite; /* 更大幅度浮动 */
         }
+        /* 依次错开浮动时间，形成波浪感 */
+        .jelly:nth-child(1) { animation-delay: 0s; }
+        .jelly:nth-child(2) { animation-delay: 0.3s; }
+        .jelly:nth-child(3) { animation-delay: 0.6s; }
+        .jelly:nth-child(4) { animation-delay: 0.9s; }
+        .jelly:nth-child(5) { animation-delay: 1.2s; }
 
-        /* 依次淡入 */
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        /* 持续上下浮动 */
-        @keyframes floatSmooth {
+        @keyframes floatBig {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50%  { transform: translateY(-18px); } /* 加大浮动幅度 */
         }
 
         /* 银色宽按钮 */
@@ -306,19 +309,6 @@
 </div>
 
 <script>
-    // 标题写完再开始水母动画
-    const jellies = document.querySelectorAll('.jelly');
-
-    setTimeout(() => {
-        jellies.forEach((el, i) => {
-            // 从左到右依次出现
-            setTimeout(() => {
-                el.style.animation = `fadeIn 0.8s ease forwards, floatSmooth 3s ease-in-out infinite`;
-                el.style.animationDelay = `${i * 0.2}s, ${i * 0.2 + 0.8}s`;
-            }, i * 180);
-        });
-    }, 2400);
-
     // 点击进入主页
     document.getElementById('startBtn').addEventListener('click', () => {
         document.querySelector('.splash-screen').classList.add('hidden');
