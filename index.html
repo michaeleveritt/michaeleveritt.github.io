@@ -46,19 +46,19 @@
         nav .menu a:hover {
             color: #3498db;
         }
-        /* 头部简介 */
+        /* 头部简介：强制一行显示 */
         .header {
             max-width: 1000px;
             margin: 40px auto;
-            padding: 0 10px; /* 缩小左右padding，给标题更多空间 */
+            padding: 0 10px; /* 减小左右内边距，给标题更多空间 */
             text-align: center;
-            overflow: hidden; /* 防止标题撑破容器 */
+            overflow: hidden;
         }
         .header h1 {
-            font-size: clamp(1.8rem, 5vw, 3.2rem); /* 更小的最小字号，适配小屏 */
+            font-size: clamp(1.8rem, 5vw, 3.2rem);
             color: #2c3e50;
             margin-bottom: 10px;
-            white-space: nowrap !important; /* 强制不换行，优先级最高 */
+            white-space: nowrap !important; /* 强制不换行 */
             overflow: hidden !important;
             text-overflow: clip;
             width: 100%;
@@ -80,12 +80,12 @@
             border-left: 5px solid #3498db;
             padding-left: 15px;
         }
-        /* 摄影作品区 - 网格布局 */
+        /* 摄影作品区：修复了 gap 和 align-items */
         .photo-grid {
             display: flex;
             flex-direction: column;
-            gap: 20px; /* 补全缺失的分号 */
-            align-items: center;
+            gap: 20px; /* 恢复了图片之间的间距 */
+            align-items: center; /* 强制图片居中 */
         }
         .photo-card {
             background: white;
@@ -95,7 +95,7 @@
             transition: transform 0.3s;
             position: relative;
             width: 95%;
-            max-width: 350px; /* 补全缺失的分号 */
+            max-width: 350px;
         }
         .photo-card:hover {
             transform: translateY(-5px);
