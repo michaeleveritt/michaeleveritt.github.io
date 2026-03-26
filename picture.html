@@ -17,8 +17,23 @@
         .photo-card img {width: 100%; height: auto; display: block;}
         .info {padding: 20px;}
         .info p {font-size: 1rem; color: #95a5a5; font-style: italic;}
-        .back {margin-top: 30px;}
-        .back a {color: #3498db; font-weight: bold; text-decoration: none;}
+        /* 与 All Pictures 完全一致的按钮样式 */
+        .view-all {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .view-all a {
+            color: #3498db;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #3498db;
+            border-radius: 8px;
+        }
+        .view-all a:hover {
+            background: #3498db;
+            color: white;
+        }
         footer {background: #2c3e50; color: white; text-align: center; padding: 30px; margin-top: 80px;}
     </style>
 </head>
@@ -39,8 +54,9 @@
             <img id="pic" src="">
             <div class="info"><p>By Michael Everitt</p></div>
         </div>
-        <div class="back">
-            <a href="pictures.html">← All Pictures</a>
+        <!-- 按钮改为 All Pictures，样式与首页完全统一 -->
+        <div class="view-all">
+            <a href="pictures.html">All Pictures</a>
         </div>
     </div>
     <footer>&copy; 2026 Michael Everitt</footer>
