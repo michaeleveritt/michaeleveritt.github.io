@@ -50,19 +50,21 @@
         .header {
             max-width: 1000px;
             margin: 40px auto;
-            padding: 0 20px;
+            padding: 0 10px; /* 缩小左右padding，给标题更多空间 */
             text-align: center;
+            overflow: hidden; /* 防止标题撑破容器 */
         }
         .header h1 {
-            font-size: clamp(2.2rem, 6vw, 3.2rem); /* 自动适配字号，最小2.2rem，最大3.2rem */;
+            font-size: clamp(1.8rem, 5vw, 3.2rem); /* 更小的最小字号，适配小屏 */
             color: #2c3e50;
             margin-bottom: 10px;
-            white-space: nowrap; /* 强制不换行 */
-            overflow: hidden;    /* 防止溢出 */
-            text-overflow: ellipsis; /* 极端情况显示省略号（可选） */
+            white-space: nowrap !important; /* 强制不换行，优先级最高 */
+            overflow: hidden !important;
+            text-overflow: clip;
+            width: 100%;
         }
         .header p {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             color: #7f8c8d;
         }
         /* 分区通用样式 */
@@ -82,7 +84,7 @@
         .photo-grid {
             display: flex;
             flex-direction: column;
-            gap:20px
+            gap: 20px; /* 补全缺失的分号 */
             align-items: center;
         }
         .photo-card {
@@ -93,7 +95,7 @@
             transition: transform 0.3s;
             position: relative;
             width: 95%;
-            max-width: 350px
+            max-width: 350px; /* 补全缺失的分号 */
         }
         .photo-card:hover {
             transform: translateY(-5px);
