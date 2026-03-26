@@ -306,12 +306,7 @@
     
     <div class="section" id="pictures">
         <h2>📸 Pictures</h2>
-        <div class="photo-grid">
-            <div class="photo-card" onclick="location.href='picture.html?src=/images/IMG_0069.jpeg'">
-                <img src="/images/IMG_0069.jpeg">
-                <div class="info"><p>By Michael Everitt</p></div>
-            </div>
-        </div>
+        <div class="photo-grid" id="photo-grid"></div>
         <div class="view-all">
             <a href="pictures.html">All Pictures</a>
         </div>
@@ -391,10 +386,14 @@ if (startBtn) {
     };
 }
 
-// 加载最新文章
-fetch('essays.json')
-    .then(r => r.json())
-    .then(essays => {
+// 加载最新文章和图片
+Promise.all([
+    fetch('essays.json').then(r => r.json()).catch(() => []),
+    fetch('pictures.json').then(r => r.json()).catch(() => ({ pictures: [] }))
+])
+.then(([essays, picturesData]) => {
+    // 加载最新文章
+    if (essays.length > 0) {
         const latest = essays[essays.length - 1];
         const latestEssayDiv = document.getElementById('latest-essay');
         if (latestEssayDiv && latest) {
@@ -405,8 +404,29 @@ fetch('essays.json')
                 <p>${latest.preview}</p>
             </div>`;
         }
-    })
-    .catch(err => console.log('Error loading essays:', err));
+    }
+    
+    // 加载最新图片
+    const pictures = picturesData.pictures || picturesData;
+    if (pictures.length > 0) {
+        // 按日期排序，取最新的3张
+        const sortedPictures = [...pictures].sort((a, b) => 
+            new Date(b.date || 0) - new Date(a.date || 0)
+        );
+        const latestPictures = sortedPictures.slice(0, 3);
+        
+        const photoGrid = document.getElementById('photo-grid');
+        if (photoGrid) {
+            photoGrid.innerHTML = latestPictures.map(pic => `
+                <div class="photo-card" onclick="location.href='${pic.link || 'picture.html?src=' + pic.src}'">
+                    <img src="${pic.src}" alt="${pic.caption || 'By Michael Everitt'}">
+                    <div class="info"><p>${pic.caption || 'By Michael Everitt'}</p></div>
+                </div>
+            `).join('');
+        }
+    }
+})
+.catch(err => console.log('Error loading content:', err));
 </script>
 
 </body>
