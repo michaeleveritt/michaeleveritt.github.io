@@ -406,23 +406,23 @@ Promise.all([
         }
     }
     
-    // 加载最新图片
+    // 加载最新图片（只显示最新的1张）
     const pictures = picturesData.pictures || picturesData;
     if (pictures.length > 0) {
-        // 按日期排序，取最新的3张
+        // 按日期排序，取最新的1张
         const sortedPictures = [...pictures].sort((a, b) => 
             new Date(b.date || 0) - new Date(a.date || 0)
         );
-        const latestPictures = sortedPictures.slice(0, 3);
+        const latestPicture = sortedPictures[0];
         
         const photoGrid = document.getElementById('photo-grid');
-        if (photoGrid) {
-            photoGrid.innerHTML = latestPictures.map(pic => `
-                <div class="photo-card" onclick="location.href='${pic.link || 'picture.html?src=' + pic.src}'">
-                    <img src="${pic.src}" alt="${pic.caption || 'By Michael Everitt'}">
-                    <div class="info"><p>${pic.caption || 'By Michael Everitt'}</p></div>
+        if (photoGrid && latestPicture) {
+            photoGrid.innerHTML = `
+                <div class="photo-card" onclick="location.href='${latestPicture.link || 'picture.html?src=' + latestPicture.src}'">
+                    <img src="${latestPicture.src}" alt="${latestPicture.caption || 'By Michael Everitt'}">
+                    <div class="info"><p>${latestPicture.caption || 'By Michael Everitt'}</p></div>
                 </div>
-            `).join('');
+            `;
         }
     }
 })
