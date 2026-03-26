@@ -18,7 +18,6 @@
             overflow: hidden;
         }
 
-        /* 开场全屏居中 */
         .splash-screen {
             position: fixed;
             top: 0;
@@ -39,11 +38,11 @@
             transform: scale(1.03);
         }
 
-        /* 标题：无动画，干净字体，永久居中 */
         .title-wrap {
             display: flex;
             justify-content: center;
             width: 100%;
+            position: relative;
         }
         .splash-title {
             font-size: clamp(2.8rem, 9vw, 6rem);
@@ -53,21 +52,18 @@
             margin-bottom: 2.4rem;
         }
 
-        /* 水母容器：固定每个位置，不会因为删除而靠拢 */
         .jellies {
             display: grid;
-            grid-template-columns: repeat(5, minmax(clamp(2.8rem, 8vw, 4.5rem), auto));
+            grid-template-columns: repeat(5, 1fr);
             gap: clamp(1rem, 5vw, 2.5rem);
             margin-bottom: 4rem;
         }
         .jelly {
             font-size: clamp(2.8rem, 8vw, 4.5rem);
-            opacity: 1;
             animation: floatBig 3.5s ease-in-out infinite;
             cursor: pointer;
-            transition: transform 0.2s;
-            width: 100%;
             text-align: center;
+            transition: transform 0.2s;
         }
         .jelly:hover {
             transform: scale(1.1);
@@ -83,26 +79,23 @@
             50%  { transform: translateY(-18px); }
         }
 
-        /* 气泡向上飞出动画 */
-        @keyframes bubbleFly {
-            0% {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-120vh) scale(0.6);
-                opacity: 0;
-            }
+        /* 缓慢左右摇摆上浮 —— 真实海漂效果 */
+        @keyframes jellyFloatUp {
+            0%   { transform: translate(0,0) scale(1); opacity:1; }
+            25%  { transform: translate(-12px, -25vh) scale(0.95); }
+            50%  { transform: translate(18px, -50vh) scale(0.9); }
+            75%  { transform: translate(-10px, -75vh) scale(0.85); }
+            100% { transform: translate(14px, -130vh) scale(0.8); opacity:0; }
         }
-        .bubble {
+
+        .floating-jelly {
             font-size: clamp(2.8rem, 8vw, 4.5rem);
-            animation: bubbleFly 2.2s ease-out forwards;
             position: absolute;
             pointer-events: none;
             z-index: 10000;
+            animation: jellyFloatUp 5.5s ease-in-out forwards; /* 更慢更柔 */
         }
 
-        /* 银色宽按钮 */
         .start-btn {
             padding: 14px 52px;
             border: 2px solid #cdd7e0;
@@ -121,7 +114,6 @@
             transform: translateY(-2px);
         }
 
-        /* 主页原有样式 */
         nav {
             background: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
@@ -171,64 +163,31 @@
             padding-left: 15px;
             margin-bottom: 30px;
         }
-        .photo-grid {
+        .photo-grid, .essay-list {
             display: flex;
             flex-direction: column;
             gap: 20px;
             align-items: center;
         }
-        .photo-card {
+        .photo-card, .essay-card {
             background: white;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
             width: 95%;
             max-width: 350px;
-            cursor: pointer;
         }
         .photo-card img {
             width: 100%;
             height: auto;
             display: block;
         }
-        .info {
+        .info, .essay-card {
             padding: 15px;
-        }
-        .info p {
-            font-size: 0.8rem;
-            color: #95a5a5;
-            font-style: italic;
-        }
-        .essay-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-        }
-        .essay-card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            cursor: pointer;
-            width: 95%;
-            max-width: 350px;
-        }
-        .essay-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
         }
         .date {
             font-size: 0.9rem;
             color: #95a5a5;
-            margin-bottom: 10px;
-        }
-        .essay-card p {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
         .see-all {
             margin-top: 15px;
@@ -238,7 +197,6 @@
             color: #3498db;
             font-weight: 500;
             text-decoration: none;
-            font-size: 1rem;
         }
         footer {
             background: #2c3e50;
@@ -247,7 +205,6 @@
             padding: 30px;
             margin-top: 80px;
         }
-
         .main-content {
             opacity: 0;
             transition: opacity 1s ease;
@@ -257,12 +214,12 @@
         }
     </style>
 </head>
+
 <body>
 
-<!-- 开场屏 -->
 <div class="splash-screen">
     <div class="title-wrap">
-        <h1 class="splash-title">Michael Everitt</h1>
+        <h1 class="splash-title" id="mainTitle">Michael Everitt</h1>
     </div>
 
     <div class="jellies" id="jellyContainer">
@@ -276,16 +233,15 @@
     <button class="start-btn" id="startBtn">START</button>
 </div>
 
-<!-- 主页内容 -->
 <div class="main-content">
     <nav>
         <div class="nav-container">
             <div class="logo">Michael Everitt</div>
             <div class="menu">
-                <a href="index.html#about">About</a>
+                <a href="#about">About</a>
                 <a href="essays.html">Some Words</a>
                 <a href="pictures.html">Some Pictures</a>
-                <a href="index.html#contact">Contact</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
     </nav>
@@ -298,17 +254,13 @@
     <div class="section">
         <h2>📓 Some Words</h2>
         <div class="essay-list" id="latest-essay"></div>
-        <div class="see-all">
-            <a href="essays.html">See all</a>
-        </div>
+        <div class="see-all"><a href="essays.html">See all</a></div>
     </div>
 
-    <div class="section" id="pictures">
+    <div class="section">
         <h2>📸 Some Pictures</h2>
         <div class="photo-grid" id="latest-picture"></div>
-        <div class="see-all">
-            <a href="pictures.html">See all</a>
-        </div>
+        <div class="see-all"><a href="pictures.html">See all</a></div>
     </div>
 
     <div class="section" id="contact">
@@ -324,78 +276,41 @@
 </div>
 
 <script>
-    // 水母点击交互：🪼 → 🫧 飞出 → 原位置生成新🪼（位置固定）
     const jellyContainer = document.getElementById('jellyContainer');
-    const delayMap = [0, 0.3, 0.6, 0.9, 1.2]; // 保持原浮动延迟
+    const title = document.getElementById('mainTitle');
+    const delayMap = [0, 0.3, 0.6, 0.9, 1.2];
 
-    jellyContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('jelly')) {
-            const index = parseInt(e.target.dataset.index);
-            const rect = e.target.getBoundingClientRect();
+    jellyContainer.addEventListener('click', e => {
+        if (!e.target.classList.contains('jelly')) return;
+        const index = e.target.dataset.index;
+        const rect = e.target.getBoundingClientRect();
 
-            // 1. 创建气泡 🫧 并向上飞出
-            const bubble = document.createElement('span');
-            bubble.className = 'bubble';
-            bubble.textContent = '🫧';
-            bubble.style.left = `${rect.left}px`;
-            bubble.style.top = `${rect.top}px`;
-            document.body.appendChild(bubble);
+        // 生成飘逸上浮的水母
+        const fj = document.createElement('span');
+        fj.className = 'floating-jelly';
+        fj.textContent = '🪼';
+        fj.style.left = rect.left + 'px';
+        fj.style.top = rect.top + 'px';
+        document.body.appendChild(fj);
 
-            // 2. 隐藏当前水母（不是删除！）
-            e.target.style.visibility = 'hidden';
+        e.target.style.visibility = 'hidden';
 
-            // 3. 气泡飞完后，原位置恢复新水母
-            setTimeout(() => {
-                bubble.remove();
-                // 原位置创建新水母
-                const newJelly = document.createElement('span');
-                newJelly.className = 'jelly';
-                newJelly.dataset.index = index;
-                newJelly.textContent = '🪼';
-                newJelly.style.animation = `floatBig 3.5s ease-in-out infinite`;
-                newJelly.style.animationDelay = `${delayMap[index]}s`;
-                // 替换掉隐藏的旧水母，保持位置不变
-                jellyContainer.replaceChild(newJelly, e.target);
-            }, 2200);
-        }
+        setTimeout(() => {
+            fj.remove();
+            const nj = document.createElement('span');
+            nj.className = 'jelly';
+            nj.dataset.index = index;
+            nj.textContent = '🪼';
+            nj.style.animationDelay = delayMap[index] + 's';
+            jellyContainer.replaceChild(nj, e.target);
+        }, 5500);
     });
 
-    // 点击 START 进入主页
-    document.getElementById('startBtn').addEventListener('click', () => {
+    document.getElementById('startBtn').onclick = () => {
         document.querySelector('.splash-screen').classList.add('hidden');
         document.querySelector('.main-content').classList.add('visible');
         document.body.style.overflow = 'auto';
-    });
-
-    // 加载随笔
-    fetch('essays.json')
-        .then(r => r.json())
-        .then(essays => {
-            const latest = essays[essays.length - 1];
-            document.getElementById('latest-essay').innerHTML = `
-            <div class="essay-card" onclick="location.href='essay.html?id=${latest.id}'">
-                <h3>${latest.title}</h3>
-                <div class="date">${latest.date}</div>
-                <p>${latest.preview}</p>
-            </div>`;
-        });
-
-    // 加载最新图片
-    const pictures = [
-        "/images/IMG_0069.jpeg",
-        "/images/IMG_5188.jpeg",
-        "/images/IMG_5201.jpeg",
-        "/images/IMG_5942.jpeg",
-        "/images/IMG_6150.jpeg",
-        "/images/IMG_9897.jpeg",
-        "/images/IMG_9903.jpeg"
-    ];
-    const latestPic = pictures[pictures.length - 1];
-    document.getElementById('latest-picture').innerHTML = `
-    <div class="photo-card" onclick="location.href='picture.html?src=${latestPic}'">
-        <img src="${latestPic}">
-        <div class="info"><p>By Michael Everitt</p></div>
-    </div>`;
+    };
 </script>
 
 </body>
