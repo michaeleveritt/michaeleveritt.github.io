@@ -180,6 +180,8 @@
         <div class="nav-container">
             <div class="logo">Michael Everitt</div>
             <div class="menu">
+                <!-- 这里加了返回首页 Home -->
+                <a href="index.html">Home</a>
                 <a href="#about">About</a>
                 <a href="essays.html">Words</a>
                 <a href="pictures.html">Pictures</a>
@@ -214,24 +216,18 @@
 </div>
 
 <script>
-    // ==============================================
-    // 1. 首次进入判断：localStorage 记录是否已访问
-    // ==============================================
-    const hasSeenSplash = localStorage.getItem('hasSeenSplash');
     const splash = document.getElementById('splash');
     const main = document.getElementById('main');
 
-    if (hasSeenSplash) {
-        // 已经点过 START → 直接显示主页
+    // 同一标签页刷新不再进启动页，关闭重开则重新显示
+    if (sessionStorage.getItem('hasStarted')) {
         splash.classList.add('hidden');
         main.classList.add('visible');
         document.body.style.overflow = 'auto';
-        loadPreviews(); // 直接加载预览
+        loadPreviews();
     }
 
-    // ==============================================
-    // 2. 水母点击上浮效果（你原来的代码完全保留）
-    // ==============================================
+    // 水母上浮效果
     const container = document.getElementById('jellyContainer');
     const delays = [0, 0.3, 0.6, 0.9, 1.2];
 
@@ -261,22 +257,17 @@
         }, 4000);
     });
 
-    // ==============================================
-    // 3. START 按钮：标记已访问 + 跳主页
-    // ==============================================
+    // START 按钮
     document.getElementById('start').onclick = () => {
-        localStorage.setItem('hasSeenSplash', 'true');
+        sessionStorage.setItem('hasStarted', 'true');
         splash.classList.add('hidden');
         main.classList.add('visible');
         document.body.style.overflow = 'auto';
         loadPreviews();
     };
 
-    // ==============================================
-    // 4. 加载随笔 & 图片预览（修复你之前不显示的问题）
-    // ==============================================
+    // 加载预览
     function loadPreviews() {
-        // 加载最新随笔
         fetch('essays.json')
             .then(res => res.json())
             .then(essays => {
@@ -289,7 +280,6 @@
                 </div>`;
             });
 
-        // 加载最新图片
         const pics = [
             "/images/IMG_0069.jpeg",
             "/images/IMG_5188.jpeg",
