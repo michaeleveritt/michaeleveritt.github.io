@@ -53,7 +53,7 @@
             margin-bottom: 2.4rem;
         }
 
-        /* 水母：更大尺寸 + 直接显示 + 依次上下大浮动 */
+        /* 水母容器 */
         .jellies {
             display: flex;
             gap: clamp(1rem, 5vw, 2.5rem);
@@ -63,6 +63,11 @@
             font-size: clamp(2.8rem, 8vw, 4.5rem);
             opacity: 1;
             animation: floatBig 3.5s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .jelly:hover {
+            transform: scale(1.1);
         }
         .jelly:nth-child(1) { animation-delay: 0s; }
         .jelly:nth-child(2) { animation-delay: 0.3s; }
@@ -73,6 +78,24 @@
         @keyframes floatBig {
             0%, 100% { transform: translateY(0); }
             50%  { transform: translateY(-18px); }
+        }
+
+        /* 气泡向上飞出动画 */
+        @keyframes bubbleFly {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120vh) scale(0.6);
+                opacity: 0;
+            }
+        }
+        .bubble {
+            font-size: clamp(2.8rem, 8vw, 4.5rem);
+            animation: bubbleFly 2.2s ease-out forwards;
+            position: absolute;
+            pointer-events: none;
         }
 
         /* 银色宽按钮 */
@@ -230,7 +253,6 @@
         }
     </style>
 </head>
-
 <body>
 
 <!-- 开场屏 -->
@@ -239,12 +261,12 @@
         <h1 class="splash-title">Michael Everitt</h1>
     </div>
 
-    <div class="jellies">
-        <span class="jelly">🪼</span>
-        <span class="jelly">🪼</span>
-        <span class="jelly">🪼</span>
-        <span class="jelly">🪼</span>
-        <span class="jelly">🪼</span>
+    <div class="jellies" id="jellyContainer">
+        <span class="jelly" data-index="0">🪼</span>
+        <span class="jelly" data-index="1">🪼</span>
+        <span class="jelly" data-index="2">🪼</span>
+        <span class="jelly" data-index="3">🪼</span>
+        <span class="jelly" data-index="4">🪼</span>
     </div>
 
     <button class="start-btn" id="startBtn">START</button>
@@ -298,7 +320,41 @@
 </div>
 
 <script>
-    // 点击进入主页
+    // 水母点击交互：🪼 → 🫧 飞出 → 原位置生成新🪼
+    const jellyContainer = document.getElementById('jellyContainer');
+    const delayMap = [0, 0.3, 0.6, 0.9, 1.2]; // 保持原浮动延迟
+
+    jellyContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('jelly')) {
+            const index = parseInt(e.target.dataset.index);
+            const rect = e.target.getBoundingClientRect();
+
+            // 1. 创建气泡 🫧 并向上飞出
+            const bubble = document.createElement('span');
+            bubble.className = 'bubble';
+            bubble.textContent = '🫧';
+            bubble.style.left = `${rect.left}px`;
+            bubble.style.top = `${rect.top}px`;
+            document.body.appendChild(bubble);
+
+            // 2. 移除当前水母
+            e.target.remove();
+
+            // 3. 气泡飞完后，在原位置生成新水母
+            setTimeout(() => {
+                bubble.remove();
+                const newJelly = document.createElement('span');
+                newJelly.className = 'jelly';
+                newJelly.dataset.index = index;
+                newJelly.textContent = '🪼';
+                newJelly.style.animation = `floatBig 3.5s ease-in-out infinite`;
+                newJelly.style.animationDelay = `${delayMap[index]}s`;
+                jellyContainer.insertBefore(newJelly, jellyContainer.children[index]);
+            }, 2200);
+        }
+    });
+
+    // 点击 START 进入主页
     document.getElementById('startBtn').addEventListener('click', () => {
         document.querySelector('.splash-screen').classList.add('hidden');
         document.querySelector('.main-content').classList.add('visible');
